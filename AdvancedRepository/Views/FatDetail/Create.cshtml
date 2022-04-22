@@ -1,0 +1,87 @@
+﻿@model AdvancedRepository.Models.ViewModels.FatDetailModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Fatura Bilgileri</h3>
+<hr />
+
+<label>Fatura No</label>
+<input readonly type="text" asp-for="FatMaster.Id"  />
+
+<label>Fatura Tarih</label>
+<input readonly type="text" asp-for="FatMaster.Date"  />
+
+<label>Customer Name:</label>
+    @foreach (var item in Model.CustomerSelect)
+    {
+        @if (item.Id == Model.FatMaster.CustomerId)
+        {
+            <input readonly type="text" name="FatMaster.CustomerId" value="@item.CompanyName" />
+        }
+    }
+    <input readonly hidden type="text" asp-for="FatMaster.CustomerId"/>
+
+
+<table class="table tab-content">
+    <thead>
+        <tr>
+            <th>Fatura No</th>
+            <th>Ürün No</th>
+            <th>Ürün Adı</th>
+            <th>Fiyat</th>
+            <th>Adet</th>
+            <th>Tutar</th>
+            <th>Güncelle</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach(var item in Model.FatDetailList)
+        {
+            <tr>
+            <td>@item.Id</td>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td>@item.UnitPrice</td>
+            <td>@item.Amount</td>
+            <td>@item.Total</td>
+
+            @*İKİ TANE ID GONDERME İSLEMİ *@
+            <td><a class="btn btn-primary" href="/FatDetail/Edit/@item.Id/?ProductId=@item.ProductId">Güncelle</a></td> @*iki tane id direkt gonderilemiyor. 2. id ? ile baslamalı*@
+            <td><a class="btn btn-primary" href="/FatDetail/Edit/?id=@item.Id&ProductId=@item.ProductId">Güncelle</a></td> @*2.yol: / koymadan yazılıyor.*@
+
+            </tr> 
+        }
+       
+    </tbody>
+</table>
+<hr />
+<hr />
+<h3 style="color:orange">
+    @Model.Total
+</h3>
+
+<form method="post">
+    <label>Ürün</label>
+    <select class="form-control" asp-for="FatDetail.ProductId">
+        @foreach(var item in Model.ProductSelects)
+        {
+            <option value="@item.ProductId">@item.ProductName</option>
+        }
+    </select>
+    <label>Miktar</label>
+    <input class="form-control" type="text" asp-for="FatDetail.Amount" />
+     <label>Birim Fiyat</label>
+    <input class="form-control" type="text" asp-for="FatDetail.DPrice" />
+    <input type="submit" value="Kaydet" class="btn btn-primary" />
+</form>
+
+
+
+
+
+

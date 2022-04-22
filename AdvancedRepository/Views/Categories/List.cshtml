@@ -1,0 +1,45 @@
+﻿@model IEnumerable<AdvancedRepository.DTOs.CategoriesList>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Category Id
+            </th>
+            <th>
+                Category Name
+            </th>
+         
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.CategoryId
+            </td>
+            <td>
+                @item.CategoryName
+            </td>
+         
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>|
+                <a class="btn btn-dark" href="/Products/ListByCategoryId/@item.CategoryId">Related</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

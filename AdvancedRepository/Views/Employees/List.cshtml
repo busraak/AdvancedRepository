@@ -1,0 +1,75 @@
+﻿@model IEnumerable<AdvancedRepository.DTOs.EmployeesList>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                AdSoy
+            </th>
+            
+          
+            <th>
+                ManagerName
+            </th>
+           
+          
+            <th>
+                CountryName
+            </th>
+            
+            <th>
+                PhoneNumber
+            </th>
+           
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.EmployeeId
+            </td>
+            <td>
+                @item.FullName
+            </td>
+            
+       
+            <td>
+                @item.ManagerName
+            </td>
+          
+            
+            <td>
+                @item.CountryName
+            </td>
+           
+            <td>
+                @item.PhoneNumber
+            </td>
+          
+
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a>|
+                <a class="btn btn-dark" asp-action="Detail" asp-route-id="@item.EmployeeId">Detail</a>|
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

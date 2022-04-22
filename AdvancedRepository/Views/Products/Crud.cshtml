@@ -1,0 +1,93 @@
+﻿@model AdvancedRepository.Models.ViewModels.ProductsModel
+
+@{
+    ViewData["Title"] = "Crud";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h4>@Model.BtnHead</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <form method="post">
+            <div class="form-group" hidden>
+                <input asp-for="Products.Id" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Products.ProductName" class="control-label"></label>
+                <input asp-for="Products.ProductName" class="form-control" />
+                <span asp-validation-for="Products.ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select name="Products.SupplierId" class="form-control">
+                    @foreach (var item in Model.SuppliersList)
+                    {
+
+                        if (item.SupplierId == Model.Products.SupplierId)
+                        {
+                            <option selected style="color:red" name="Products.SupplierId" value="@item.SupplierId">@item.CompanyName</option>
+
+                        }
+                        else
+                        {
+                            <option name="Products.SupplierId" value="@item.SupplierId">@item.CompanyName</option>
+
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="Products.CategoryId" class="form-control">
+                    @foreach (var item in Model.CategoriesList)
+                    {
+
+                        if (item.CategoryId == Model.Products.CategoryId)
+                        {
+                            <option selected style="color:red" name="Products.CategoryId" value="@item.CategoryId">@item.CategoryName</option>
+
+                        }
+                        else
+                        {
+                            <option name="Products.CategoryId" value="@item.CategoryId">@item.CategoryName</option>
+
+                        }
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <select name="Products.UnitId" class="form-control">
+                    @foreach (var item in Model.UnitList)
+                    {
+
+                        if (item.UnitId == Model.Products.UnitId)
+                        {
+                            <option selected style="color:red" name="Products.UnitId" value="@item.UnitId">@item.UnitName</option>
+
+                        }
+                        else
+                        {
+                            <option name="Products.UnitId" value="@item.UnitId">@item.UnitName</option>
+
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="@Model.BtnVal" class="@Model.BtnClass" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-warning" asp-action="List">Back to List!</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

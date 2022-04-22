@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AdvancedRepository.DTOs.CountryList>
+
+@{
+    ViewData["Title"] = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                CountryName
+            </th>
+            <th>
+                City Name
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.CountryId
+            </td>
+            <td>
+                @item.CountyName
+            </td>
+            <td>
+                @item.CityName
+            </td>
+
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.CountryId">Edit</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.CountryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
